@@ -1,0 +1,7 @@
+django==4.2.2
+mysqlclient==2.1.1
+captcha==0.4
+pyecharts==2.0.3
+django-simple-captcha==0.5.17
+# 密码学包sha256_password or caching_sha2_password auth methods
+cryptography==41.0.1

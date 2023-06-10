@@ -1,0 +1,244 @@
+ {% load static %}
+<!DOCTYPE html>
+<html>
+<link>
+	<title>收入记账管理</title>
+    <style>
+        ul{
+            margin:0;
+            padding:0;
+            list-style:none;}
+        .table{
+            display:table;
+            border-collapse:collapse;
+            border:1px solid #ccc;
+            font-size: 15px;}
+        .table-caption{
+            display:table-caption;
+            font-size:30px;
+            text-align:center;
+            line-height: 80px;}
+        .table-row-group{
+            display:table-row-group;}
+        .table-row{
+            display:table-row;}
+        .table-row-group .table-row:hover, .table-row:hover{
+            background:#f6f6f6;}
+        .table-cell{
+            display:table-cell;
+            padding:0 5px;
+            border:1px solid #ccc;
+            text-align: center;
+            line-height: 46px;
+            font-size: 20px;}
+        .table-c{
+            display:table-cell;
+            padding:0 5px;
+            border:1px solid #ccc;
+            text-align: center;
+            line-height: 40px;
+            font-size: 20px;}
+        .table-header-group{
+            display:table-header-group;
+            background:#eee;
+            font-weight:bold;
+            }
+        .bt{
+            width: 50px;
+            margin-left: -30px;}
+        .sc{
+            width:50px;
+            margin-right: -30px;}
+
+    </style>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <!-- bootstrap -->
+    <link href="{% static 'login/css/bootstrap/bootstrap.css' %}" rel="stylesheet" />
+    <link href="{% static 'login/css/bootstrap/bootstrap-responsive.css' %}" rel="stylesheet" />
+    <link href="{% static 'login/css/bootstrap/bootstrap-overrides.css'%}" type="text/css" rel="stylesheet" />
+
+    <!-- global styles -->
+    <link rel="stylesheet" type="text/css" href="{% static 'login/css/layout.css' %}" />
+    <link rel="stylesheet" type="text/css" href="{% static 'login/css/elements.css' %}" />
+    <link rel="stylesheet" type="text/css" href="{% static 'login/css/icons.css' %}" />
+
+
+    <!-- libraries -->
+    <link href="{% static 'login/css/lib/jquery-ui-1.10.2.custom.css' %}" rel="stylesheet" type="text/css" />
+    <link href="{% static 'login/css/lib/font-awesome.css' %}" type="text/css" rel="stylesheet" />
+    <link href="{% static 'login/css/lib/morris.css' %}" type="text/css" rel="stylesheet" />
+
+    <!-- this page specific styles -->
+    <link rel="stylesheet" href="{% static 'login/css/compiled/chart-showcase.css' %}" type="text/css" media="screen" />
+
+    <!-- open sans font -->
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/css' />
+
+    <!--[if lt IE 9]>
+    <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <style>
+        .page_href {
+            width: 30px;
+            height: 35px;
+            font-size: 24px;
+            text-align: center;
+            margin: auto;
+        }
+    </style>
+    <script>
+        function last_page() {
+            let _page = document.getElementById("active").getAttribute("page");
+            _page = Number(_page) - 1;
+            if (_page < 1)
+                _page = 1;
+            _page = String(_page);
+            window.location = "?page=" + _page;
+        }
+        function next_page() {
+            let _page = document.getElementById("active").getAttribute("page");
+            _page = Number(_page) + 1;
+            const count = document.getElementsByClassName("page_href").length - 2
+            if (_page > count)
+                _page = count;
+            _page = String(_page);
+            window.location = "?page=" + _page;
+        }
+    </script>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+
+</head>
+<body>
+
+    <!-- navbar -->
+    <div class="navbar navbar-inverse">
+        <div class="navbar-inner">
+            <button type="button" class="btn btn-navbar visible-phone" id="menu-toggler">
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+
+            <a class="brand" href="#">个人记账系统</a>
+
+            <ul class="nav pull-right">
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle hidden-phone" data-toggle="dropdown">
+                        个 人 中 心
+                        <b class="caret"></b>
+                    </a>
+                    <ul class="dropdown-menu">
+                        <li><a href="/personal/">信息修改</a></li>
+                        <li><a href="/logout/">注销</a></li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+    </div>
+    <!-- sidebar -->
+    <div id="sidebar-nav">
+        <ul id="dashboard-menu">
+            <li>
+                <a href="/index/">
+                    <i class="icon-home"></i>
+                    <span>首页</span>
+                </a>
+            </li>
+            <li class="active">
+                <a href="#">
+                    <div class="pointer">
+                        <div class="arrow"></div>
+                        <div class="arrow_border"></div>
+                    </div>
+                    <i class="icon-signal"></i>
+                    <span>收入记账管理</span>
+                </a>
+            </li>
+            <li>
+                <a href="/pay/">
+                    <i class="icon-group"></i>
+                    <span>支出记账管理</span>
+                </a>
+            </li>
+            <li>
+                <a href="/chart/">
+                    <i class="icon-picture"></i>
+                    <span>记账图表</span>
+                </a>
+            </li>
+        </ul>
+    </div>
+
+	<!-- main container -->
+    <div class="content">
+        <div style="margin-left: 60%; margin-top: 50px; margin-bottom: 30px;">
+            <form>
+                <input class="search" name="key"/>
+                <input class="btn-primary" type="submit" value="搜索" style="margin-left: 10px; border-radius: 7px;width: 50px;line-height: 2;">
+            </form>
+        </div>
+        <div class="table" style="width: 1200px;margin: auto">
+            <div class="table-header-group">
+                <ul class="table-row">
+                    <li class="table-cell">序号</li>
+                    <li class="table-cell">类型</li>
+                    <li class="table-cell">金额</li>
+                    <li class="table-cell">备注</li>
+                    <li class="table-cell">时间</li>
+                    <li class="table-cell" colspan="2">操作</li>
+                </ul>
+            </div>
+            {% for new in new_list %}
+            <div class="table-row-group">
+                <ul class="table-row">
+                    <li class="table-c">{{ new.iId }}</li>
+                    <li class="table-c">{{ new.iType }}</li>
+                    <li class="table-c">{{ new.iMoney }}</li>
+                    <li class="table-c">{{ new.iRemark }}</li>
+                    <li class="table-c">{{ new.iTime }}</li>
+                    <li style="text-align: center">
+                        <a href="/update_income/?iId={{ new.iId }}" class="bt">
+                            <button type="button" value="编辑">编辑</button>
+                        </a>
+                       &nbsp;<a href="/del_income/?iId={{ new.iId }}" class="sc">
+                            <button type="button" value="删除" onclick="deljob();">删除</button>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+            {% endfor %}
+        </div>
+        <div class="pagination" style="margin-right: 20%; margin-top: 50px; text-align: right;">
+            <ul>
+                <li><a class="page_href" href="javascript:last_page();">&#8249;</a></li>
+                {% for i in page_count %}
+                    <li page="{{ i }}" {% if i == page %}id="active"{% endif %}><a class="{% if i == page %}active {% endif %}page_href" href="?page={{ i }}">{{ i }}</a></li>
+                {% endfor %}
+                <li><a class="page_href" href="javascript:next_page();">&#8250;</a></li>
+            </ul>
+        </div>
+    </div>
+    <script>
+        function deljob() {
+            confirm("删除成功！");
+        }
+    </script>
+	<!-- scripts for this page -->
+    <script src="http://code.jquery.com/jquery-latest.js"></script>
+    <script src="{% static 'login/js/bootstrap.min.js' %}"></script>
+    <script src="{% static 'login/js/jquery-ui-1.10.2.custom.min.js' %}"></script>
+    <!-- knob -->
+    <script src="{% static 'login/js/jquery.knob.js' %}"></script>
+    <!-- flot charts -->
+    <script src="{% static 'login/js/jquery.flot.js' %}"></script>
+    <script src="{% static 'login/js/jquery.flot.stack.js' %}"></script>
+    <script src="{% static 'login/js/jquery.flot.resize.js' %}"></script>
+    <!-- morrisjs -->
+    <script src="http://cdnjs.cloudflare.com/ajax/libs/raphael/2.1.0/raphael-min.js"></script>
+    <script src="{% static 'login/js/morris.min.js' %}"></script>
+    <!-- call all plugins -->
+    <script src="{% static 'login/js/theme.js' %}"></script>
+
+</body>
+</html>

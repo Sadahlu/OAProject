@@ -1,0 +1,122 @@
+{% load static %}
+<!doctype html>
+<html lang="en">
+  <head>
+      <style>
+          .box{
+              background: #eed3d7;
+              width: 600px;
+              height: 650px;
+              margin:auto;
+              background: white;
+              border-radius: 10px 10px 10px 10px;
+              webkit-box-shadow: rgb(0 0 0 / 40%) 0 1px 3px, rgb(0 0 0 / 35%) 0 0 1px;
+              box-shadow: rgb(0 0 0 / 40%) 0 1px 3px, rgb(0 0 0 / 35%) 0 0 1px;
+          }
+          .header {
+            background: #2c3742;
+            box-shadow: inset rgb(255 255 255 / 30%) 0 1px 0, inset rgb(0 0 0 / 22%) 0 -1px 0, rgb(0 0 0 / 14%) 0 1px 2px;
+            width: 100%;
+            height: 75px;
+          }
+          .gr{
+              color: white;
+              text-align: center;
+              padding-top: 20px;
+              font-family: 宋体;
+              letter-spacing: 2px;
+              font-size: 35px;
+          }
+          .zc{
+            color: #fff;
+            background-color: #007bff;
+            border-color: #007bff;
+            border-radius: 5px 5px 5px 5px;
+            margin-left: 250px;
+            webkit-box-shadow: rgb(0 0 0 / 40%) 0 1px 3px, rgb(0 0 0 / 35%) 0 0 1px;
+              box-shadow: rgb(0 0 0 / 40%) 0 1px 3px, rgb(0 0 0 / 35%) 0 0 1px;
+        }
+          .cw{
+                color: #856404;
+                background-color: #fff3cd;
+                border-color: #ffeeba;
+              position: relative;
+                margin-bottom: 1rem;
+
+                border-radius: 75.25rem;
+          }
+      </style>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <!-- 上述meta标签*必须*放在最前面，任何其他内容都*必须*跟随其后！ -->
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.bootcss.com/twitter-bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet">
+    <link href="{% static 'login/css/register.css' %}" rel="stylesheet"/>
+    <title>注册</title>
+  </head>
+  <body>
+  <div class="header">
+        <h3 class="gr">个人记账系统</h3>
+    </div>
+    <div class="container">
+            <div class="col">
+            <div class="box" style="margin-top: 25px">
+                <form class="form-register" action="/register/" method="post">
+
+                    {% if register_form.captcha.errors %}
+                        <div class="cw">{{ register_form.captcha.errors }}</div>
+                    {% elif message %}
+                        <div class="cw">{{ message }}</div>
+                    {% endif %}
+
+                  {% csrf_token %}
+                  <h3 class="text-center">注册</h3>
+
+                  <div class="form-group">
+                      {{ register_form.uname.label_tag }}
+                      {{ register_form.uname}}
+                  </div>
+                  <div class="form-group">
+                      {{ register_form.upwd1.label_tag }}
+                      {{ register_form.upwd1 }}
+                  </div>
+                  <div class="form-group">
+                      {{ register_form.upwd2.label_tag }}
+                      {{ register_form.upwd2 }}
+                  </div>
+                  <div class="form-group">
+                      {{ register_form.uemail.label_tag }}
+                      {{ register_form.uemail }}
+                  </div>
+                <div class="form-group">
+                      {{ register_form.utel.label_tag }}
+                      {{ register_form.utel }}
+                  </div>
+                  <div class="form-group">
+                      {{ register_form.usex.label_tag }}
+                      {{ register_form.usex }}
+                  </div>
+                  <div class="form-group">
+                      {{ register_form.captcha.label_tag }}
+                      {{ register_form.captcha }}
+                  </div>
+                  <div>
+                      <a href="/login/"  ><ins>直接登录</ins></a>
+                      <button type="submit" class="zc">注册</button>
+                  </div>
+
+                </form>
+            </div>
+            </div>
+    </div> <!-- /container -->
+
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    {#    以下三者的引用顺序是固定的#}
+    <script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.js"></script>
+    <script src="https://cdn.bootcss.com/popper.js/1.15.0/umd/popper.js"></script>
+    <script src="https://cdn.bootcss.com/twitter-bootstrap/4.3.1/js/bootstrap.min.js"></script>
+
+  </body>
+</html>

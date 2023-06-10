@@ -1,0 +1,107 @@
+{% load static %}
+<!doctype html>
+<html lang="en">
+  <head>
+       <style>
+          .box{
+              background: #eed3d7;
+              width: 600px;
+              height: 480px;
+              margin:auto;
+              background: rgba(255, 255, 255, 0.65);
+              border-radius: 10px 10px 10px 10px;
+              webkit-box-shadow: rgb(0 0 0 / 40%) 0 1px 3px, rgb(0 0 0 / 35%) 0 0 1px;
+              box-shadow: 0 0 6px 2px rgb(0 0 0 / 10%);
+              margin-top: 10px;
+          }
+          .header {
+            height: 90px;
+          }
+          .gr{
+              color: #2c3742;
+              text-align: center;
+              padding-top: 60px;
+              font-family:"华文行楷";
+              letter-spacing: 2px;
+              font-size: 40px;
+          }
+          .dl{
+            color: #fff;
+            background-color: #007bff;
+            border-color: #007bff;
+            border-radius: 5px 5px 5px 5px;
+            margin-left: 250px;
+            webkit-box-shadow: rgb(0 0 0 / 40%) 0 1px 3px, rgb(0 0 0 / 35%) 0 0 1px;
+              box-shadow: rgb(0 0 0 / 40%) 0 1px 3px, rgb(0 0 0 / 35%) 0 0 1px;
+              margin-top: -30px;
+        }
+          .cw{
+                color: #856404;
+                background-color: #fff3cd;
+                border-color: #ffeeba;
+              position: relative;
+                margin-bottom: 1rem;
+
+                border-radius: 75.25rem;
+          }
+      </style>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <!-- 上述meta标签*必须*放在最前面，任何其他内容都*必须*跟随其后！ -->
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.bootcss.com/twitter-bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet">
+    <link href="{% static 'login/css/login.css' %}" rel="stylesheet"/>
+    <title>登录</title>
+  </head>
+  <body>
+   <div class="header">
+        <h3 class="gr">个人记账系统</h3>
+    </div>
+    <div class="container">
+            <div class="col">
+            <div class="box" style="margin-top: -30px">
+                <form class="form-login" action="/login/" method="post">
+
+                {% if login_form.captcha.errors %}
+                    <div class="cw">{{ login_form.captcha.errors }}</div>
+                {% elif message %}
+                    <div class="cw">{{ message }}</div>
+                {% endif %}
+
+                  {% csrf_token %}
+                  <h3 class="text-center">欢迎登录</h3>
+
+                  <div class="form-group">
+                    {{ login_form.uname.label_tag }}
+                    {{ login_form.uname}}
+                  </div>
+
+                  <div class="form-group">
+                    {{ login_form.upwd.label_tag }}
+                    {{ login_form.upwd }}
+                  </div>
+
+                  <div class="form-group">
+                    {{ login_form.captcha.label_tag }}
+                    {{ login_form.captcha }}
+                  </div>
+
+                  <div>
+                      <a href="/register/" class="text-success " ><ins>新用户注册</ins></a>
+                      <button type="submit" class="dl">登录</button>
+                  </div>
+                </form>
+            </div>
+            </div>
+    </div> <!-- /container -->
+
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    {#    以下三者的引用顺序是固定的#}
+    <script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.js"></script>
+    <script src="https://cdn.bootcss.com/popper.js/1.15.0/umd/popper.js"></script>
+    <script src="https://cdn.bootcss.com/twitter-bootstrap/4.3.1/js/bootstrap.min.js"></script>
+
+  </body>
+</html>

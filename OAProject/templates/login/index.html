@@ -1,0 +1,163 @@
+ {% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<title>首页</title>
+
+    <style>
+        .lx{width:50%;
+            height:95px;
+            float:left;
+            padding-left:100px}
+        .je{width:50%;
+            height:122px;
+            float:left;
+            padding-left:100px;
+        margin-top: 20px;}
+    </style>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <!-- bootstrap -->
+    <link href="{% static 'login/css/bootstrap/bootstrap.css' %}" rel="stylesheet" />
+    <link href="{% static 'login/css/bootstrap/bootstrap-responsive.css' %}" rel="stylesheet" />
+    <link href="{% static 'login/css/bootstrap/bootstrap-overrides.css'%}" type="text/css" rel="stylesheet" />
+
+    <!-- libraries -->
+
+    <link href="{% static 'login/css/lib/font-awesome.css' %}" type="text/css" rel="stylesheet" />
+
+    <!-- global styles -->
+    <link rel="stylesheet" type="text/css" href="{% static 'login/css/layout.css' %}" />
+    <link rel="stylesheet" type="text/css" href="{% static 'login/css/elements.css' %}" />
+    <link rel="stylesheet" type="text/css" href="{% static 'login/css/icons.css' %}" />
+
+    <!-- this page specific styles -->
+    <link rel="stylesheet" href="{% static 'login/css/index.css' %}" type="text/css" media="screen" />
+
+    <!-- open sans font -->
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/css' />
+
+    <!-- lato font -->
+    <link href='http://fonts.googleapis.com/css?family=Lato:300,400,700,900,300italic,400italic,700italic,900italic' rel='stylesheet' type='text/css' />
+
+    <!--[if lt IE 9]>
+      <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" /></head>
+<body>
+
+    <!-- navbar -->
+    <div class="navbar navbar-inverse">
+        <div class="navbar-inner">
+            <button type="button" class="btn btn-navbar visible-phone" id="menu-toggler">
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+
+            <a class="brand" href="#">个人记账系统</a>
+
+            <ul class="nav pull-right">
+               <li>
+                   <a href="#" class="zt">{{ request.session.user_uname }}!  欢迎回来！</a>
+               </li>
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle hidden-phone" data-toggle="dropdown">
+                        个 人 中 心
+                        <b class="caret"></b>
+                    </a>
+                    <ul class="dropdown-menu">
+                        <li><a href="/personal/">信息修改</a></li>
+                        <li><a href="/logout/">注销</a></li>
+                    </ul>
+                </li>
+
+            </ul>
+        </div>
+    </div>
+
+    <!-- sidebar -->
+    <div id="sidebar-nav">
+        <ul id="dashboard-menu">
+            <li class="active">
+                <div class="pointer">
+                    <div class="arrow"></div>
+                    <div class="arrow_border"></div>
+                </div>
+                <a href="#">
+                    <i class="icon-home"></i>
+                    <span>首页</span>
+                </a>
+            </li>
+            <li>
+                <a href="/income/">
+                    <i class="icon-signal"></i>
+                    <span>收入记账管理</span>
+                </a>
+            </li>
+            <li>
+                <a href="/pay/">
+                    <i class="icon-group"></i>
+                    <span>支出记账管理</span>
+                </a>
+            </li>
+            <li>
+                <a href="/chart/">
+                    <i class="icon-picture"></i>
+                    <span>记账图表</span>
+                </a>
+            </li>
+
+        </ul>
+    </div>
+	<!-- main container -->
+    <div class="content">
+
+        <div class="container-fluid">
+            <div id="pad-wrapper">
+                 <form action="/insertRecord/" method="post">{% csrf_token %}
+                     <div class="lx">
+                    <label>类型:</label>
+                    <select name="iType">
+                        <option value="收入">收入</option>
+                        <option value="支出">支出</option>
+                    </select>
+                     </div>
+                     <div class="je">
+                    <label>金额:</label>
+                    <input type="text" name="iMoney"/>
+                     </div>
+                    <label>备注:</label>
+                    <input type="text" name="iRemark"/>
+                    <label>时间:</label>
+                    <input type="date" name="iTime"/><br/>
+                     <button type="submit" class="btn btn-primary float-right" onclick="return deletejob();">保存</button>
+                </form>
+            </div>
+    </div>
+   </div>
+	<!-- scripts -->
+    <script src="http://code.jquery.com/jquery-latest.js"></script>
+    <script src="{% static 'login/js/bootstrap.min.js' %}"></script>
+    <script src="{% static 'login/js/jquery-ui-1.10.2.custom.min.js' %}"></script>
+    <script type="text/javascript" language="JavaScript">
+                function deletejob()
+                {
+                     if(confirm("保存成功！"))
+                     {
+                         return true;
+                     }else{
+                         return false;
+                     }
+                }
+</script>
+
+    <!-- knob -->
+    <script src="{% static 'login/js/jquery.knob.js' %}"></script>
+    <!-- flot charts -->
+    <script src="{% static 'login/js/jquery.flot.js' %}"></script>
+    <script src="{% static 'login/js/jquery.flot.stack.js' %}"></script>
+    <script src="{% static 'login/js/jquery.flot.resize.js' %}"></script>
+    <script src="{% static 'login/js/theme.js' %}"></script>
+</body>
+</html>
